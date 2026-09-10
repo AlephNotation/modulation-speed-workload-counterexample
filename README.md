@@ -22,7 +22,9 @@ The scripts check the arithmetic of the certificates. All comparisons establishi
 
 Tynan Daly (2026). *Modulation-speed workload counterexamples for Cox/D/1 queues*. Version 1.0.0. See [CITATION.cff](CITATION.cff). Licensed under [CC-BY-4.0](LICENSE).
 
-DOI: (pending)
+DOI: [10.5281/zenodo.22686842](https://doi.org/10.5281/zenodo.22686842)
+
+[![DOI](https://zenodo.org/badge/1363809067.svg)](https://doi.org/10.5281/zenodo.22686842)
 
 ## Acknowledgment of AI assistance
 

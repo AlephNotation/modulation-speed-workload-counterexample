@@ -9,6 +9,7 @@ authors:
 version: 1.0.0
 date-released: 2026-09-10
 repository-code: "https://github.com/AlephNotation/modulation-speed-workload-counterexample"
+doi: "10.5281/zenodo.22686842"
 license: CC-BY-4.0
 keywords:
   - queueing theory
