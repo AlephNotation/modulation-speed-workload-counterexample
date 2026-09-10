@@ -20,7 +20,7 @@ The scripts check the arithmetic of the certificates. All comparisons establishi
 
 ## Citation
 
-Tynan Daly (2026). *Modulation-speed workload counterexamples for Cox/D/1 queues*. Version 1.0.0. See [CITATION.cff](CITATION.cff). Licensed under [CC-BY-4.0](LICENSE).
+Tynan Daly (2026). *Speeding up a Markov environment can increase mean workload: a counterexample to the universal form of Ross's second conjecture*. Version 1.1.0. See [CITATION.cff](CITATION.cff). Licensed under [CC-BY-4.0](LICENSE).
 
 DOI: [10.5281/zenodo.22686842](https://doi.org/10.5281/zenodo.22686842)
 
@@ -28,4 +28,4 @@ DOI: [10.5281/zenodo.22686842](https://doi.org/10.5281/zenodo.22686842)
 
 ## Acknowledgment of AI assistance
 
-AI tools assisted with the mathematical derivation, writing, and verification code; the author is responsible for the content.
+AI tools (OpenAI Codex and Anthropic Claude) assisted with the derivation, the verification code, and the writing; the author checked the argument and is responsible for the content.

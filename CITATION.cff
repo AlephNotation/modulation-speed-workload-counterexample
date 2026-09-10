@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 type: software
-title: "Modulation-speed workload counterexamples for Cox/D/1 queues"
+title: "Speeding up a Markov environment can increase mean workload: a counterexample to the universal form of Ross's second conjecture"
 authors:
   - family-names: Daly
     given-names: Tynan
     orcid: "https://orcid.org/0009-0001-3335-9840"
-version: 1.0.0
+version: 1.1.0
 date-released: 2026-09-10
 repository-code: "https://github.com/AlephNotation/modulation-speed-workload-counterexample"
 doi: "10.5281/zenodo.22686842"
