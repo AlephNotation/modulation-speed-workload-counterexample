@@ -1,0 +1,299 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Modulation-speed workload counterexamples for Cox/D/1 queues},pdfauthor={Tynan Daly}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\eps}{\epsilon}
+\title{Modulation-speed workload counterexamples\\for Cox/D/1 queues}
+\author{Tynan Daly}
+\date{10 September 2026}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Status.} Mathematical derivation with exact-arithmetic certificates and numerical cross-checks, not independent peer review or formal verification. Novelty is not established. The target is the universal workload inequality in Problem~1 of Leskel\"a (2022), including its restriction to finite-state Markov intensity processes. Established positive theorems for special ordered Markov environments are not contradicted.
+
+\section{Main statement}
+
+There is a 64-state continuous-time Markov intensity process with strictly positive intensity levels and strictly positive transition rates between every pair of distinct states such that increasing the modulation speed from $2\pi$ to $3\pi$ strictly increases stationary mean workload in the unit-service, unit-speed single-server queue. An explicit bound is
+\[
+w(3\pi)-w(2\pi)>\frac{1587}{25\,580\,800\,000\,000}>0.
+\]
+The environment is stationary, irreducible and mixing. The statement does not rely on a periodic sample path, non-Markov hidden phases, zero intensities or zero transition rates. A separate 24-state example below has entirely rational parameters, though a smaller certified effect; its transition graph is a directed cycle. Neither state count is claimed globally minimal.
+
+\section{The workload inequality used in both certificates}
+
+Let $X$ be stationary with $\E X(0)=1$ and $0\le X\le M$. Conditional on $X$, let arrivals be Poisson of intensity $\eps X(ct)$. Every service requirement is exactly~1, the server speed is~1, and $\eps M<1$. Define
+\[
+K(c)=\int_0^1(1-u)\E[X(0)X(cu)]\,du.
+\]
+The stationary mean workload satisfies
+\begin{equation}
+\frac{\eps}{2}+\eps^2K(c)
+\le w(c)\le
+\frac{\eps}{2}+\frac{\eps^2K(c)}{1-\eps M}.
+\label{eq:bound}
+\end{equation}
+
+\subsection*{Construction and integrability}
+
+Use a two-sided stationary environment and an independent homogeneous Poisson proposal process of rate $\eps M$ with independent uniform marks. Accept a point at $t$ when its mark is at most $X(ct)/M$. Start empty at time $-T$. The reflected workloads at zero increase with $T$ and are dominated by the stationary homogeneous M/D/1 workload driven by all proposal points. The latter queue is stable and has finite moments of every order. The monotone limit therefore exists, is stationary by shift-equivariance, and has the required finite moments.
+
+At a deterministic stationary time write $V$ for workload. Integrate the pathwise identity
+\[
+V(t)^2-V(0)^2=-2\int_0^t V(s)\,ds
++\int_{(0,t]}(2V(s-)+1)N(ds).
+\]
+Domination and bounded intensity make these terms integrable. The predictable compensator gives
+\[
+w(c)=\eps/2+\eps\E[X(0)V].
+\]
+No independence between workload and environment and no PASTA assertion are used.
+
+On the same arrivals define the infinite-server residual work
+\[
+Y=\sum_{T_i\in(-1,0]}(1+T_i).
+\]
+Pathwise $Y\le V$: a job of age $u<1$ cannot have received more than $u$ units of service. Conditional Poisson expectation gives $\E Y=\eps/2$ and $\E[X(0)Y]=\eps K(c)$. Scalar stationary autocorrelation is even, so the backwards time argument in this calculation equals the displayed $K(c)$.
+
+Let $D=V-Y\ge0$ and $d=\E D=w(c)-\eps/2$. Then exactly
+\[
+d=\eps^2K(c)+\eps\E[X(0)D].
+\]
+The pointwise bounds $0\le X\le M$ imply
+\[
+\eps^2K(c)\le d\le\eps^2K(c)+\eps M d,
+\]
+which proves~\eqref{eq:bound}. Thus~\eqref{eq:bound} controls the entire remainder, not merely one term in an asymptotic expansion. In particular,
+\begin{equation}
+w(c_2)-w(c_1)\ge\eps^2\left[K(c_2)-\frac{K(c_1)}{1-\eps M}\right].
+\label{eq:comparison}
+\end{equation}
+
+\section{Full-support 64-state Markov generator}
+
+Let $n=64$, $\theta=2\pi/n$, $r=1/\sin\theta$, and $\delta=1/2000$. Let $S$ be the cyclic permutation matrix satisfying $(Sv)_j=v_{j+1\bmod n}$, and let $\Pi$ have every entry equal to $1/n$. Set
+\begin{equation}
+Q=r(S-I)+\delta(\Pi-I).
+\label{eq:generator}
+\end{equation}
+One interpretation is forward moves around a cycle at rate $r$, with independent uniform redraws of the state at rate $\delta$. A redraw that chooses the same state is a null event. Actual off-diagonal rates are
+\[
+q_{j,k}=r\,\mathbf{1}_{\{k=j+1\bmod n\}}+\frac{1}{128000},\qquad k\ne j.
+\]
+The diagonal is minus the off-diagonal row sum. Every off-diagonal entry is strictly positive. Row and column sums vanish, so the stationary distribution is uniform. The finite chain is irreducible and mixing.
+
+Set
+\begin{equation}
+x_j=1+\frac12\cos\left(\frac{2\pi(j+1/4)}{64}\right),
+\qquad X(t)=x_{J(t)}.
+\label{eq:levels}
+\end{equation}
+All 64 $x_j$ are distinct: cosine equality would require either identical indices modulo $n$ or $j+k+1/2$ to be a multiple of $n$, the latter being impossible. Therefore the scalar intensity observation $X(t)$ is itself a CTMC, not merely a non-Markov function of a hidden chain. Its mean is~1 and $1/2<x_j<3/2$.
+
+Use $\eps=1/2000$, $\lambda_c(t)=\eps x_{J(ct)}$, and unit services. The actual environmental generator is $cQ$ and peak arrival intensity is below $3/4000$, so all compared queues are dominated by a stable homogeneous M/D/1 queue.
+
+\subsection*{It lies outside stochastic-monotonicity assumptions}
+
+In the ordering of numerical intensities, $x_{62}<x_1<x_{63}<x_0$. For the upper set $H=\{x_{63},x_0\}$, both states $x_{62}$ and $x_1$ start below $H$. From state~62 the forward move enters $H$, but from state~1 it does not. The uniform-reset contribution to the instantaneous probability of entering $H$ is identical from these two states. Hence
+\[
+P_{62}(X(t)\in H)-P_1(X(t)\in H)=rt+O(t^2)>0
+\]
+for sufficiently small $t$. Thus the scalar chain is not stochastically monotone; this is not a counterexample to the established positive theorem under double stochastic monotonicity.
+
+\section{Covariance and exact sign certificate}
+
+On the first Fourier mode, $\Pi$ acts as zero and $S$ acts by $e^{i\theta}$. Its generator eigenvalue is
+\[
+r(e^{i\theta}-1)-\delta=-\alpha+i,
+\qquad \alpha=\tan(\pi/64)+\delta.
+\]
+Averaging over uniform initial states yields
+\[
+\E[X(0)X(t)]=1+\frac18e^{-\alpha t}\cos t,\qquad t\ge0.
+\]
+Consequently
+\begin{equation}
+K(c)=\frac12+\frac18 I_\alpha(c),\qquad
+I_\alpha(c)=\operatorname{Re}\frac{e^z-1-z}{z^2},\qquad z=(-\alpha+i)c.
+\label{eq:kernel}
+\end{equation}
+For completeness, the following certificate uses only elementary inequalities and rational arithmetic, not a floating-point sign test.
+
+Using $3<\pi<22/7$, $\sin x<x$ and $\cos x>1-x^2/2$, with $u=11/224$,
+\[
+0<\alpha<\frac{u}{1-u^2/2}+\frac1{2000}
+=\frac{9956231}{200462000}<\frac1{20}.
+\]
+Define $A=\alpha/(1+\alpha^2)$ and $C=(1-\alpha^2)/(1+\alpha^2)^2$. Then $A<\alpha$ and $99/100<C<1$. At multiples of $\pi$,
+\[
+I_\alpha(k\pi)=\frac{A}{k\pi}
++C\frac{1-(-1)^ke^{-\alpha k\pi}}{(k\pi)^2}.
+\]
+Using $e^{-x}\ge1-x$ and $1-e^{-x}\le x$,
+\[
+\begin{split}
+I_\alpha(3\pi)-I_\alpha(2\pi)
+&> -\frac1{360}
++\frac{99}{100}\left[\frac{2}{9(22/7)^2}-\frac1{72}\right]\\
+&=\frac{91}{15840}>\frac1{200}.
+\end{split}
+\]
+The bracket is positive, which justifies multiplying its lower bound by the lower bound on $C$. Therefore
+\[
+K(3\pi)-K(2\pi)>\frac1{1600}.
+\]
+Also $I_\alpha(2\pi)\le\alpha/\pi<1/60$, giving $K(2\pi)<241/480$. Substitution into~\eqref{eq:comparison} gives
+\[
+\begin{split}
+w(3\pi)-w(2\pi)
+&>\frac1{2000^2}
+\left[\frac1{1600}-\frac{(3/4000)(241/480)}{1-3/4000}\right]\\
+&=\frac{1587}{25\,580\,800\,000\,000}>0.
+\end{split}
+\]
+For orientation, direct formula evaluations give $K(2\pi)$ approximately $0.50182682190600814$ and $K(3\pi)$ approximately $0.50292850997295202$. These decimals are not the sign certificate.
+
+\subsection*{Robustness}
+
+The certificate is strict. In a neighborhood of this full-support generator the stationary distribution, finite-time matrix exponentials and $K$-values depend continuously on the parameters. Intensity labels remain positive and distinct, and the subcritical peak bound remains valid. Normalize perturbed intensity vectors by their stationary mean if keeping $\E X=1$ fixed. The strict separation in~\eqref{eq:comparison} therefore persists in a sufficiently small open neighborhood. No size of that neighborhood is asserted here.
+
+The deterministic service assumption is allowed by the stated problem. This note does not establish a reversal for exponential service times.
+
+\section{A smaller all-rational 24-state example}
+
+Let $Q=S-I$ for a directed 24-cycle with unit forward rates, and use uniform stationarity. Define $x$ by dividing the following exact integers by 1000:
+\[
+\begin{gathered}
+1499,\ 1473,\ 1416,\ 1330,\ 1221,\ 1098,\ 967,\ 839,\\
+722,\ 624,\ 552,\ 510,\ 501,\ 527,\ 584,\ 670,\\
+779,\ 902,\ 1033,\ 1161,\ 1278,\ 1376,\ 1448,\ 1490.
+\end{gathered}
+\]
+These values define the model; they are not uncertain decimal approximations. They are distinct, positive, average exactly~1 and are below $3/2$. Thus $x_{J(t)}$ itself is an irreducible mixing CTMC. Take $\eps=1/1000000$, unit services, and compare the actual environmental generators $29Q$ and $30Q$.
+
+The verifier obtains rational enclosures of
+\begin{equation}
+K(c)=\frac1{24}x^T\left[\sum_{m=0}^{\infty}\frac{c^mQ^m}{(m+2)!}\right]x.
+\label{eq:series}
+\end{equation}
+This follows by termwise integration of the uniformly convergent matrix exponential on $[0,1]$. With terms through $m=L$ and $\lVert Q\rVert_\infty=2$, the error in $K$ is at most
+\begin{equation}
+\frac{M(2c)^{L+1}}{(L+3)!}\frac1{1-2c/(L+4)}
+\label{eq:tail}
+\end{equation}
+when $2c<L+4$. Here $\lVert(x/24)^T\rVert_1=1$ and $\lVert x\rVert_\infty\le M$, which give the scalar norm bound. The ratio of successive omitted terms is at most $2c/(L+4)$, which gives the geometric tail bound.
+
+With $L=240$, exact \texttt{Fraction} arithmetic proves the outward-rounded bounds
+\[
+K(29)<\frac{503796}{1000000},\qquad
+K(30)>\frac{503798}{1000000}.
+\]
+The omitted-series widths are less than $7\times10^{-51}$ and $3\times10^{-47}$ respectively, but decimal error estimates are not used for the certificate. Applying~\eqref{eq:comparison},
+\[
+w(30)-w(29)>
+\frac{1244303}{999998500000000000000000}
+>\frac1{10^{18}}>0.
+\]
+This is a much smaller absolute certified effect than in the 64-state example. The gain here is fewer states and entirely rational input data, not practical performance magnitude. The smaller state count was found by searching a family of cycle-based examples. Neither failure to find smaller examples nor numerical exploration establishes global minimality.
+
+\section{Reproduction and status}
+
+From the repository root, run
+\begin{verbatim}
+python3 verify/run_all.py
+\end{verbatim}
+The scripts use Python 3.10 or newer and its standard library. The runner checks the periodic certificate in Appendix~\ref{sec:periodic}, the 64-state elementary rational certificate, and the 24-state rational matrix-series enclosures. Decimal displays are diagnostics; all comparisons establishing the certificates use exact arithmetic. The final output on success is \texttt{ALL CHECKS PASSED}.
+
+The supplied audit also reports numerical cross-checks of the 64-state generator and its semigroup using NumPy/SciPy, a closed-form integral check with mpmath at 70 decimal digits, and direct matrix-exponential quadrature for the 24-state generator. Those optional numerical routines are not included in this repository. Such numerical checks are separate checks of calculations, not independent review of the probability proof.
+
+\section{Research context and limitations}
+
+Leskel\"a (2022), Problem~1, asks for universal modulation-speed workload monotonicity for stationary ergodic intensities and for a characterization of when it holds. Its discussion records positive results for special finite-state CTMCs, including those whose generator and time reversal are both stochastically monotone. These examples address the universal assertion even within finite-state CTMC environments; they do not contradict those restricted positive theorems.
+
+The simplified random-phase sinusoid is non-Markov and nonmixing. The cycle construction in \path{docs/unrestricted_modulation_speed_v2.md} already avoids those limitations. The full-support refinement above adds positive rates between every pair of distinct states; the 24-state construction reduces state count with an exact computational certificate.
+
+The first Ross conjecture, concerning comparison with a constant-rate Poisson queue, is a different assertion. A nonmonotone dependence on speed does not contradict that lower-bound theorem.
+
+A targeted search and inspection of Leskel\"a's precise statement do not establish originality. Earlier periodic-input results and earlier Markov-modulated queue results remain relevant prior art. Even an old periodic counterexample can be important prior art for a Markov approximation construction. No claim of first discovery, global minimality, full characterization, or all-load reversal is made. Novelty relative to Rolski (1987, 1989), Lemoine (1989), Heyman (1982), and Miyoshi--Rolski (2004) is not established.
+
+\appendix
+\section{Random-phase periodic certificate}
+\label{sec:periodic}
+
+The following specialization is recorded in \path{docs/upper_bound_audit.md}. Let
+\[
+X(t)=1+\cos(t+\Theta),\qquad
+\Theta\sim\operatorname{Uniform}[0,2\pi),\qquad M=2.
+\]
+Uniform phase gives stationarity. The continuous-time shifts act as every rotation of the phase circle, so any event invariant under all shifts has probability zero or one: the intensity is ergodic. It is not mixing. The service law is degenerate iid and independent of arrivals.
+
+Direct integration gives
+\[
+\E[X(0)X(t)]=1+\tfrac12\cos t,\qquad
+K(c)=\tfrac12+\frac{1-\cos c}{2c^2}.
+\]
+At $c_1=2\pi$ and $c_2=3\pi$,
+\[
+K(c_1)=\tfrac12,\qquad
+K(c_2)=\tfrac12+\frac1{9\pi^2}>\tfrac12+\frac1{90}.
+\]
+The strict elementary estimate uses $\pi^2<10$, for example from $\pi<22/7$. Writing $\rho$ for the mean arrival rate, \eqref{eq:bound} yields
+\[
+\begin{aligned}
+w_\rho(3\pi)-w_\rho(2\pi)
+&>\rho^2\left(\frac1{90}-\frac{\rho}{1-2\rho}\right)\\
+&=\frac{\rho^2(1-92\rho)}{90(1-2\rho)}.
+\end{aligned}
+\]
+In particular, every $0<\rho<1/92$ is certified by this coarse bound. This is a sufficient range, not a necessary range for the reversal itself.
+
+At $\rho=1/100$,
+\[
+w_{1/100}(2\pi)\le\frac{99}{19600},\qquad
+w_{1/100}(3\pi)>\frac{2273}{450000},
+\]
+so
+\[
+w_{1/100}(3\pi)-w_{1/100}(2\pi)>\frac1{11025000}>0.
+\]
+At $\rho=1/1000$,
+\[
+w_{1/1000}(2\pi)\le\frac{999}{1996000},\qquad
+w_{1/1000}(3\pi)>\frac{22523}{45000000},
+\]
+so
+\[
+w_{1/1000}(3\pi)-w_{1/1000}(2\pi)>\frac{227}{22455000000}>0.
+\]
+
+\section*{Acknowledgment of AI assistance}
+
+AI tools assisted with the mathematical derivation, writing, and verification code; the author is responsible for the content.
+
+\begin{thebibliography}{9}
+\bibitem{leskela}
+L. Leskel\"a (2022).
+\emph{Ross's second conjecture and supermodular stochastic ordering}.
+Queueing Systems 100, 213--215.
+\href{https://doi.org/10.1007/s11134-022-09824-0}{doi:10.1007/s11134-022-09824-0};
+\href{https://arxiv.org/abs/2204.11856}{arXiv:2204.11856}.
+The supplied audit reports direct inspection of the problem statement and CTMC discussion.
+
+\bibitem{baeuerle}
+N. Baeuerle and T. Rolski (1998).
+\emph{A monotonicity result for the workload in Markov-modulated queues}.
+Journal of Applied Probability 35(3), 741--747.
+\href{https://doi.org/10.1239/jap/1032265221}{doi:10.1239/jap/1032265221}.
+The positive theorem's hypothesis is discussed in reference~\cite{leskela}; this audit does not claim a fresh full-text review of reference~\cite{baeuerle}.
+
+\bibitem{miyoshi}
+N. Miyoshi and T. Rolski (2004).
+\emph{Ross-type conjectures on monotonicity of queues}.
+Australian \& New Zealand Journal of Statistics 46(1), 121--131.
+Contains positive comparisons under regularity assumptions; not evidence that every finite-state Markov environment has the ordering.
+\end{thebibliography}
+\end{document}

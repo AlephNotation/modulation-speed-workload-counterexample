@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: software
+title: "Modulation-speed workload counterexamples for Cox/D/1 queues"
+authors:
+  - family-names: Daly
+    given-names: Tynan
+    orcid: "https://orcid.org/0009-0001-3335-9840"
+version: 1.0.0
+date-released: 2026-09-10
+repository-code: "https://github.com/AlephNotation/modulation-speed-workload-counterexample"
+license: CC-BY-4.0
+keywords:
+  - queueing theory
+  - Ross's conjecture
+  - Cox process
+  - Markov-modulated Poisson process
+  - stochastic ordering
