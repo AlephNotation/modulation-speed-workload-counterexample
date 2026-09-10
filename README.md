@@ -20,7 +20,7 @@ The scripts check the arithmetic of the certificates. All comparisons establishi
 
 ## Citation
 
-Tynan Daly (2026). *Speeding up a Markov environment can increase mean workload: a counterexample to the universal form of Ross's second conjecture*. Version 1.1.0. See [CITATION.cff](CITATION.cff). Licensed under [CC-BY-4.0](LICENSE).
+Tynan Daly (2026). *Speeding up a Markov environment can increase mean workload: a counterexample to the universal form of Ross's second conjecture*. Version 1.1.1. See [CITATION.cff](CITATION.cff). Licensed under [CC-BY-4.0](LICENSE).
 
 DOI: [10.5281/zenodo.22686842](https://doi.org/10.5281/zenodo.22686842)
 

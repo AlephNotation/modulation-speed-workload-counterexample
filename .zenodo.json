@@ -7,7 +7,7 @@
     }
   ],
   "description": "Explicit finite-state Markov-modulated Poisson arrival processes, and a random-phase periodic one, for which speeding up the environment strictly increases mean stationary workload in a single-server queue with unit deterministic service. This answers the universal-validity question in Problem 1 of Leskelä (2022) in the negative.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publication_date": "2026-09-10",
   "upload_type": "publication",
   "publication_type": "preprint",

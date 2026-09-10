@@ -6,7 +6,7 @@ authors:
   - family-names: Daly
     given-names: Tynan
     orcid: "https://orcid.org/0009-0001-3335-9840"
-version: 1.1.0
+version: 1.1.1
 date-released: 2026-09-10
 repository-code: "https://github.com/AlephNotation/modulation-speed-workload-counterexample"
 doi: "10.5281/zenodo.22686842"
